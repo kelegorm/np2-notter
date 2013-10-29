@@ -27,7 +27,11 @@ module.exports = function (app) {
 
 
     app.get('/', app.access.free, function (req, res) {
-        res.redirect("/index.html");
+        if (req.hasOwnProperty("session") && req.session.loggedIn ) {
+            res.redirect('/app');
+        } else {
+            res.redirect("/index.html");
+        }
     });
 
     app.get('/signin', app.access.free, function (req, res) {

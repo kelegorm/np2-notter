@@ -46,17 +46,7 @@ var refreshNotes = function () {
                 var note = notes[i];
                 note.date = new Date(note.date);
 
-                var str = '<div class="note"><div class="container"><div class="row ">'
-                    + '<div class="col-md-2 text-muted">'
-                    + getReadableDate(note.date)
-                    + '</div><div class="col-md-8">'
-                    + note.text
-                    + '</div><div class="col-md-2 hidable">'
-                        + '<div class="pull-right">'
-                            + '<a href="' + '/note/' + note._id + '">Share</a>'
-                            + '<button class="close deleteNodeButton" data-id="' + note._id + '">&times;</button>'
-                        + '</div>'
-                    + '</div></div></div></div>';
+                var str = getNodeHTML(note);
                 objects += str;
             }
 
@@ -80,4 +70,29 @@ var refreshNotes = function () {
         }
 
     });
+};
+
+function getNodeHTML(note) {
+    return '<div class="note">'
+            + '<div class="container">'
+                + '<div class="row ">'
+                    + '<div class="col-md-2 text-muted">'
+                        + getReadableDate(note.date)
+                    + '</div>'
+                    + '<div class="col-md-8">'
+                        + note.text
+                    + '</div>'
+                    + '<div class="col-md-2 hidable">'
+                        + '<div class="pull-right btn-toolbar">'
+                            + '<a class="btn btn-info" href="' + '/note/' + note._id + '">'
+                                + '<span class="glyphicon glyphicon-link"></span> Share'
+                            + '</a>'
+                            + '<button class="btn btn-danger deleteNodeButton" data-id="' + note._id + '">'
+                                + '<span class="glyphicon glyphicon-remove"></span>'
+                            + '</button>'
+                        + '</div>'
+                    + '</div>'
+                + '</div>'
+            + '</div>'
+        + '</div>';
 };

@@ -16,16 +16,24 @@ block content
                 .navbar-right.navbar-btn
                     .btn-toolbar
                         .btn-group
-                            a.btn.btn-primary(data-toggle="modal", href="#addNoteModal") Add note
+                            a.btn.btn-primary(data-toggle="modal", href="#addNoteModal")
+                                span.glyphicon.glyphicon-plus
+                                |  Add note
                         .btn-group
-                            button#deleteAllButton.btn.btn-default Clear all
+                            button#deleteAllButton.btn.btn-default
+                                span.glyphicon.glyphicon-fire
+                                |  Clear all
                         .btn-group
                             button.btn.btn-default.dropdown-toggle(href="#", data-toggle="dropdown", type="button")
-                                | #{email}&nbsp;
+                                span.glyphicon.glyphicon-user
+                                |  #{email}&nbsp;
                                 span.caret
+
                             ul.dropdown-menu
                                 li
-                                    a(href="/signout") Sign out
+                                    a(href="/signout")
+                                        span.glyphicon.glyphicon-log-out
+                                        |  Sign out
 
     div
         #emptyDisplay.jumbotron.text-muted.text-center.hide There are no one note here.&nbsp;
