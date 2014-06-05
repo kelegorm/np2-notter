@@ -38,6 +38,7 @@ mongoose.connect(getMongodbURL(), function(error) {
     });
 });
 
+
 function getMongodbURL() {
     //look for the ready mongodb link
     if (process.env.MONGO_URL) {
