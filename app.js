@@ -26,8 +26,7 @@ routes(app);
 
 
 // run application
-//mongoose.connect('mongodb://primaryuser:RSwDSv9OV1@widmore.mongohq.com:10010/demo1', function(error) {
-mongoose.connect('mongodb://localhost:27017/demo1', function(error) {
+mongoose.connect(getMongodbURL(), function(error) {
     if (error) {
         console.log('Mongoose.connect error: ' + error);
         return;
@@ -38,3 +37,30 @@ mongoose.connect('mongodb://localhost:27017/demo1', function(error) {
         console.log('Express server listening on port ' + app.get('port'));
     });
 });
+
+function getMongodbURL() {
+    //look for the ready mongodb link
+    if (process.env.MONGO_URL) {
+        return process.env.MONGO_URL;
+    }
+
+    if (process.env.VCAP_SERVICES) {
+        var mongo = JSON.parse(process.env.VCAP_SERVICES)['mongodb-1.8'][0]['credentials'];
+    }
+
+    if (!mongo) {
+        mongo = {
+            "hostname":"localhost",
+            "port":27017,
+            "db":"notter"
+        }
+    }
+
+    var result = 'mongodb://';
+    if (mongo.username && mongo.password) {
+        result += mongo.username + ":" + mongo.password + "@";
+    }
+
+    result += mongo.hostname + ":" + mongo.port + '/' + mongo.db;
+    return result;
+}
